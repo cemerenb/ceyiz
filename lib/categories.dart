@@ -11,10 +11,14 @@ class Categories extends StatelessWidget {
       crossAxisCount: 2,
       children: [
         GestureDetector(
+          //Tümü
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const HomePage()),
+              MaterialPageRoute(
+                  builder: (context) => const HomePage(
+                        i: 10,
+                      )),
             );
           },
           child: Padding(
@@ -36,25 +40,36 @@ class Categories extends StatelessWidget {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 114, 114, 114),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Mutfak',
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const Icon(
-                  Icons.soup_kitchen,
-                  size: 70,
-                )
-              ],
+        GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomePage(
+                        i: 0,
+                      )),
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 114, 114, 114),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Mutfak',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  const Icon(
+                    Icons.soup_kitchen,
+                    size: 70,
+                  )
+                ],
+              ),
             ),
           ),
         ),
