@@ -4,12 +4,11 @@ import 'package:ceyiz/categories.dart';
 import 'package:ceyiz/statics.dart';
 import 'package:flutter/material.dart';
 import 'package:ceyiz/lists.dart';
-import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 
 class HomePage extends StatefulWidget {
-  final int i;
-  const HomePage({super.key, required this.i});
+  final int category;
+  const HomePage({super.key, required this.category});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -22,6 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   final pricecontroller = TextEditingController();
   final myController = TextEditingController();
+  final searchController = TextEditingController();
 
   final _itemsBox = Hive.box('itemsBox');
 
@@ -38,31 +38,6 @@ class _HomePageState extends State<HomePage> {
     super.dispose();
   }
 
-  // void getData() {
-  //   log('get dataya girdi');
-  //   try {
-  //     for (var i = 0; i < 220; i++) {
-  //       prices[i] = _pricesBox.get(i) ?? 0.0;
-  //     }
-  //     for (var i = 0; i < 220; i++) {
-  //       pieces[i] = _piecesBox.get(i) ?? 0.0;
-  //     }
-  //     for (var i = 0; i < 220; i++) {
-  //       isChecked[i] = _isCheckedBox.get(i) ?? 0.0;
-  //     }
-  //     // ignore: empty_catches
-  //   } on Exception {}
-  // }
-
-  // void writeData(index) async {
-  //   log('write dataya girdi');
-  //   await _pricesBox.put(index, prices[index]);
-  //   await _piecesBox.put(index, pieces[index]);
-  //   await _isCheckedBox.put(index, isChecked[index]);
-  //   log('data yazıldı');
-  //   return;
-  // }
-
   Future<void> writeItem(int index, Item item) async {
     await _itemsBox.put(index, item.toJson());
   }
@@ -76,12 +51,12 @@ class _HomePageState extends State<HomePage> {
             endKey: itemCount - 1,
           )
           .cast();
-      List<Item> _items = itemsString
+      List<Item> items = itemsString
           .map(
             (String json) => Item.fromJson(json),
           )
           .toList();
-      items = _items;
+      items = items;
     } else {
       for (int index = 0; index < items.length; index++) {
         await _itemsBox.put(index, items[index].toJson());
@@ -108,6 +83,10 @@ class _HomePageState extends State<HomePage> {
         title: Visibility(
             visible: isVisible,
             child: TextFormField(
+              controller: searchController,
+              onChanged: (value) {
+                setState(() {});
+              },
               decoration: formFieldDecoration(),
             )),
         actions: [
@@ -143,11 +122,24 @@ class _HomePageState extends State<HomePage> {
   }
 
   ListView homePageListView() {
+    log(searchController.text);
     return ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          if (true) {
+          if (widget.category == categories[index] || widget.category == 10) {
+            log(widget.category.toString());
             Item item = items[index];
+
+            bool shouldFilter = searchController.text.isNotEmpty;
+            if (shouldFilter) {
+              bool isMatch = item.name
+                  .toLowerCase()
+                  .contains(searchController.text.toLowerCase());
+              if (!isMatch) {
+                return const SizedBox();
+              }
+            }
+
             return Card(
                 child: Padding(
               padding: const EdgeInsets.only(left: 15.0, top: 2, bottom: 2),
@@ -235,11 +227,10 @@ class _HomePageState extends State<HomePage> {
                           // FocusManager.instance.primaryFocus?.unfocus();
                           try {
                             item.price = double.parse(value);
-                            items[index] = item;
                             writeItem(index, item);
                             set();
                           } on Exception catch (e) {
-                            print(e);
+                            log(e.toString());
                           }
                         }),
                         keyboardType: TextInputType.number,
@@ -256,8 +247,8 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () => setState(() {
                                   if (item.piece > 0) {
                                     item.piece--;
+                                    set();
                                   }
-                                  items[index] = item;
                                   writeItem(index, item);
                                 }),
                             child: const Icon(Icons.remove)),
@@ -271,7 +262,6 @@ class _HomePageState extends State<HomePage> {
                         ElevatedButton(
                             onPressed: () => setState(() {
                                   item.piece++;
-                                  items[index] = item;
                                   writeItem(index, item);
                                   set();
                                 }),
@@ -303,16 +293,6 @@ class _HomePageState extends State<HomePage> {
 
   set() {
     setState(() {});
-  }
-}
-
-class MyFilter extends TextInputFormatter {
-  static final _reg = RegExp(r'^\d+$');
-
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    return _reg.hasMatch(newValue.text) ? newValue : oldValue;
   }
 }
 
