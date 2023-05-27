@@ -109,7 +109,10 @@ class _HomePageState extends State<HomePage> {
         child: FloatingActionButton.extended(
           onPressed: () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const Statics()),
+            MaterialPageRoute(
+                builder: (context) => Statics(
+                      total: findTotal(),
+                    )),
           ),
           label: Text(
             ("${findTotal()} ₺"),
