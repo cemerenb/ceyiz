@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:ceyiz/categories.dart';
 import 'package:ceyiz/statics.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,5 @@
 import 'package:ceyiz/categories.dart';
+import 'package:ceyiz/statics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -50,7 +51,7 @@ class _MyAppState extends State<MyApp> {
           elevation: 0,
         ),
       ),
-      home: const Categories(),
+      home: const Statics(),
     );
   }
 }
