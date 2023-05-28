@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:ceyiz/categories.dart';
-
 var categoryCounts = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var categorySpents = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -302,8 +300,9 @@ countCategories() {
 
 categoriesTotalSpent(int data) {
   double sum = 0;
+
   for (var i = 0; i < items.length; i++) {
-    if (data == categories[i]) {
+    if (data == categories[i] && items[i].isChecked == true) {
       sum += items[i].price.toDouble() * items[i].piece.toDouble();
     }
   }
@@ -476,7 +475,6 @@ List<double> categories = [
   5,
   5,
   5,
-  5,
   6,
   6,
   6,
@@ -494,6 +492,7 @@ List<double> categories = [
   6,
   6,
   6,
+  7,
   7,
   7,
   7,

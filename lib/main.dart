@@ -25,7 +25,7 @@ class _MyAppState extends State<MyApp> {
       title: "İlk uygulamam",
       debugShowCheckedModeBanner: false,
       darkTheme: ThemeData.dark().copyWith(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 77, 77, 77),
         listTileTheme: const ListTileThemeData(contentPadding: EdgeInsets.zero),
         progressIndicatorTheme:
             const ProgressIndicatorThemeData(color: Colors.white),
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: ThemeMode.system,
       theme: ThemeData.light().copyWith(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(255, 213, 238, 255),
         progressIndicatorTheme:
             const ProgressIndicatorThemeData(color: Colors.white),
         listTileTheme: const ListTileThemeData(contentPadding: EdgeInsets.zero),

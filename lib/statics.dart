@@ -1,4 +1,3 @@
-import 'package:ceyiz/home_page.dart';
 import 'package:ceyiz/lists.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
@@ -29,7 +28,7 @@ class _StaticsState extends State<Statics> {
     Colors.green,
     Colors.purple,
     Colors.yellow,
-    Colors.black,
+    const Color.fromARGB(255, 238, 27, 143),
     Colors.orange,
     Colors.teal,
     Colors.brown,
@@ -113,8 +112,13 @@ class _StaticsState extends State<Statics> {
                 staticsCategories(Colors.red, Colors.blue, Colors.green,
                     'Mutfak', 'Beyaz Eşya', 'Yatak Odası'),
                 Container(width: MediaQuery.of(context).size.width / 20),
-                staticsCategories(Colors.purple, Colors.yellow, Colors.black,
-                    'Oturma Odası', 'Banyo', 'Tekstil'),
+                staticsCategories(
+                    Colors.purple,
+                    Colors.yellow,
+                    const Color.fromARGB(255, 238, 27, 143),
+                    'Oturma Odası',
+                    'Banyo',
+                    'Tekstil'),
                 Container(width: MediaQuery.of(context).size.width / 20),
                 staticsCategories(Colors.orange, Colors.teal, Colors.brown,
                     'Küçük Ev Aleti', 'Alet & Edevat', 'Diğer'),

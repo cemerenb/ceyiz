@@ -179,7 +179,10 @@ class _HomePageState extends State<HomePage> {
                         width: 200,
                         child: Text('${item.piece} adet'))),
                 trailing: GestureDetector(
-                  onTap: () => bottomSheet(context, index),
+                  onTap: () => bottomSheet(
+                    context,
+                    index,
+                  ),
                   child: Text(
                     '${item.price * item.piece}₺',
                     style: const TextStyle(fontSize: 20),
@@ -230,6 +233,7 @@ class _HomePageState extends State<HomePage> {
                           try {
                             item.price = double.parse(value);
                             writeItem(index, item);
+                            item.isChecked = true;
                             set();
                           } on Exception catch (e) {
                             log(e.toString());
